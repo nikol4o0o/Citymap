@@ -10,21 +10,20 @@ using namespace std;
 class Graph
 {
 private:
-	map<string, int> members;
-	int AdjacencyMatrix[MAXIMUM][MAXIMUM];
-	int membersCounter;
-	int location;
-	
+    map<string, int> members;
+    int AdjacencyMatrix[MAXIMUM][MAXIMUM];
+    int membersCounter;
+    int location;
+    
 public:
-	Graph();
-	~Graph();
+    Graph();
+    ~Graph();
 
 //Additional Functions
 public:
-	void readFromFile(string fileName);
-	void printAllStops();
-	bool isEnd(int index);
-	string findByValue(int n);
+    void readFromFile(string fileName);
+    bool isThereRouteinGraph(int start, int end, int Matrix[MAXIMUM][MAXIMUM], bool* visitedVertexes, int size);
+    void printTheMatrixforTest();
 
 };
 

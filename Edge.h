@@ -2,21 +2,21 @@
 #include <iostream>
 #include<string>
 #include<list>
-#include "Map.h"
+#include "Graph.h"
 
 using namespace std;
 class Edge
 {
 private:
-	int length; 
-	int edgeSize; 
-	int edgeMass[MAXIMUM];
+    int length;
+    int edgeSize;
+    int edgeMass[MAXIMUM];
 public:
-	Edge()
-	{
-		length = 0; 
-		edgeSize = 0; 
-	}
+    Edge()
+    {
+        length = 0;
+        edgeSize = 0;
+    }
 
 };
 
