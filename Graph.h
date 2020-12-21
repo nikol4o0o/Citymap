@@ -12,18 +12,19 @@ class Graph
 private:
     map<string, int> members;
     int AdjacencyMatrix[MAXIMUM][MAXIMUM];
-    int membersCounter;
+    int membersSize;
     int location;
     
 public:
     Graph();
-    ~Graph();
 
 //Additional Functions
 public:
+    void printAllStops();
+    string findByValue(int n);
+    bool isEnd(int index);
+    bool isWay(int start, int end);
+    void isWay(string startName, string endName);
     void readFromFile(string fileName);
-    bool isThereRouteinGraph(int start, int end, int Matrix[MAXIMUM][MAXIMUM], bool* visitedVertexes, int size);
-    void printTheMatrixforTest();
-
 };
 
