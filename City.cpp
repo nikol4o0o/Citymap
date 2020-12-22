@@ -10,9 +10,9 @@ int main()
     //ofstream output("input.txt");
     
     map.readFromFile("input.txt");
-    //map.printAllStops();
+    cout<<map.isWay("C", "A");
     cout<<endl;
-    cout<<map.isWay("A", "D");
+    cout<<map.isRouteToEverySingleVertex("A");
     cout<<endl;
     cout<<"Hello world\n";
     return 0;

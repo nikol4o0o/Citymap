@@ -1,13 +1,14 @@
-#pragma once
+//#pragma once
+#define MAXIMUM 20
 
-bool isWayInGraph(int start, int end,const int Matrix[20][20] , int size,bool* visited)
+bool isRoute(int start, int end,const int Matrix[MAXIMUM][MAXIMUM], bool* visitedVertexes, int size)
 {
-    visited[start] = true;
+    visitedVertexes[start] = true;
     if(Matrix[end][end]<0)
         return false;
     if (Matrix[start][end] > 0)
         {
-            visited[end] = true;
+            visitedVertexes[end] = true;
             return true;
         }
 
@@ -17,10 +18,21 @@ bool isWayInGraph(int start, int end,const int Matrix[20][20] , int size,bool* v
                 {
                     continue;
                 }
-            if (visited[i] == false && Matrix[start][i] > 0 && isWayInGraph(i, end, Matrix, size, visited))
+            if (visitedVertexes[i] == false && Matrix[start][i] > 0 && isRoute(i, end, Matrix, visitedVertexes, size))
                 {
                     return true;
                 }
         }
     return false;
+}
+
+void initializeMassive(int matrix[MAXIMUM][MAXIMUM])
+{
+    for(auto i = 0; i < 20; i++)
+        {
+            for(auto j = 0; j < 20; j++)
+                {
+                    matrix[i][j] = 0;
+                }
+        }
 }

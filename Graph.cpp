@@ -6,13 +6,7 @@ Graph::Graph()
 {
     this->location = 0;
     this->membersSize = 0;
-    for (auto i = 0; i < MAXIMUM; ++i)
-    {
-        for (auto j = 0; j < MAXIMUM; ++j)
-        {
-            AdjacencyMatrix[i][j] = 0;
-        }
-    }
+    initializeMassive(AdjacencyMatrix);
 }
 
 void Graph::readFromFile(string fileName) {
@@ -78,56 +72,59 @@ void Graph::readFromFile(string fileName) {
     }
 }
 
-bool Graph::isEnd(int index) {
-    if (this->AdjacencyMatrix[index][index] < 0) return true;
-    for (auto i = 0; i < membersSize; i++)
-    {
-        if (i == index) continue;
-        if (this->AdjacencyMatrix[index][i] > 0)
-            return false;
-    }
-
-    return true;
-}
-
-string Graph::findByValue(int n) {
-    map<string, int>::const_iterator it = this->members.begin();
-    while (it != this->members.end())
+string Graph::searchTheList(int n) {
+    map<string, int>::const_iterator it;
+    for(it = this->members.cbegin(); it != this->members.cend(); ++it)
     {
         if (it->second == n)
             return it->first;
-        it++;
     }
     return "";
 }
-
-void Graph::printAllStops() {
-    for (auto i = 0; i < membersSize; i++)
-    {
-        if (isEnd(i))
-        {
-            for (int k = 0; k < membersSize; k++)
-            {
-                if (i == k) continue;
-                if (this->AdjacencyMatrix[k][i] > 0)
-                {
-                    cout << findByValue(k) << " - " << findByValue(i) << endl;
-                }
-            }
-        }
-    }
-}
-
-
 
 bool Graph::isWay(string startName, string endName)
 {
     int start = members[startName];
     int end = members[endName];
     bool visited[MAXIMUM] = { false };
-    return isWayInGraph(start, end, this->AdjacencyMatrix, membersSize, visited );
+    return isRoute(start, end, this->AdjacencyMatrix, visited, membersSize );
 }
 
+bool Graph::isRouteToEverySingleVertex(string startName)
+{
+    int start = members[startName];
+    bool visitedVertexes[MAXIMUM] = { false };
+    bool visitedCurrentVertexes[MAXIMUM]= { false };
+    bool flag;
+    int i = 0;
+    int j = 0;
+    for (i; i < membersSize; i++)
+        {
+            if (i == start)
+                {
+                    continue;
+                }
+            flag = isRoute(start, i, AdjacencyMatrix, visitedCurrentVertexes, membersSize );
+            if (flag)
+                {
+                    for ( j; j < membersSize; j++)
+                        {
+                            visitedVertexes[j] = visitedVertexes[j] || visitedCurrentVertexes[j];
+                            visitedCurrentVertexes[j] = 0;
+                            flag = flag && visitedVertexes[j];
+                        }
+                    if (flag)
+                        {
+                            return true;
+                        }
+                }
+            else
+                {
+                    return false;
+                }
+        }
+    return false;
+}
 
 
 

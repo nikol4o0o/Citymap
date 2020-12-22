@@ -21,10 +21,9 @@ public:
 //Additional Functions
 public:
     void readFromFile(string fileName);
-    void printAllStops();
-    string findByValue(int n);
-    bool isEnd(int index);
+    string searchTheList(int n);
     bool isWay(string startName, string endName);
+    bool isRouteToEverySingleVertex(string startName);
 
 };
 

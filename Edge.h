@@ -16,6 +16,8 @@ public:
     {
         length = 0;
         edgeSize = 0;
+        edgeMass[MAXIMUM] = {0};
+
     }
 
 };
