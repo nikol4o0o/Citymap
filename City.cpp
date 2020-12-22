@@ -1,4 +1,3 @@
-#include<iostream>
 #include"Graph.h"
 #include"Edge.h"
 
@@ -11,9 +10,9 @@ int main()
     //ofstream output("input.txt");
     
     map.readFromFile("input.txt");
-    map.printAllStops();
+    //map.printAllStops();
     cout<<endl;
-    map.isWay("A", "D");
+    cout<<map.isWay("A", "D");
     cout<<endl;
     cout<<"Hello world\n";
     return 0;

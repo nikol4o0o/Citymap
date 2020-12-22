@@ -1,30 +1,6 @@
 #include "Graph.h"
+#include "AddedFunctionality.h"
 
-
-bool isWayInGraph(int start, int end,const int Matrix[MAXIMUM][MAXIMUM] , int size,bool* visited)
-{
-    visited[start] = true;
-    if(Matrix[end][end]<0)
-        return false;
-    if (Matrix[start][end] > 0)
-    {
-        visited[end] = true;
-        return true;
-    }
-
-    for (int i = 0; i < size; i++)
-    {
-        if(Matrix[i][i]<0)//check if closed
-        {
-            continue;
-        }
-        if (visited[i] == false && Matrix[start][i] > 0 && isWayInGraph(i, end, Matrix, size, visited))
-        {
-            return true;
-        }
-    }
-    return false;
-}
 
 Graph::Graph()
 {
@@ -46,34 +22,42 @@ void Graph::readFromFile(string fileName) {
     } else {
         string rowRead;
 
-
         while (getline(readFile, rowRead)) {
             int index = 0;
             string wordRead = "";
             int intersectionIndex;
-            while (rowRead[index] != ' ') {
+            while (rowRead[index] != ' ')
+            {
                 wordRead = wordRead + rowRead[index];
                 ++index;
             }
             //cout << wordRead << endl;
-            if (members.find(wordRead) != members.end()) {
+            if (members.find(wordRead) != members.end())
+            {
                 intersectionIndex = members[wordRead];
-            } else {
+            }
+            else{
                 members.insert(pair<string, int>(wordRead, membersSize));
                 intersectionIndex = membersSize;
                 ++membersSize;
             }
             ++index;
-            for (index; index < rowRead.length(); index++) {
+            for (index; index < rowRead.length(); index++)
+            {
                 wordRead = "";
                 int crossIndex;
-                while (rowRead[index] != ' ') {
-                    wordRead += rowRead[index];
-                    index++;
-                }
-                if (members.find(wordRead) != members.end()) {
-                    crossIndex = members[wordRead];
-                } else {
+
+                while (rowRead[index] != ' ')
+                    {
+                        wordRead += rowRead[index];
+                        index++;
+                    }
+                if (members.find(wordRead) != members.end())
+                    {
+                        crossIndex = members[wordRead];
+                     }
+                else
+                    {
                     members.insert(pair<string, int>(wordRead, membersSize));
                     crossIndex = membersSize;
                     membersSize++;
@@ -136,20 +120,14 @@ void Graph::printAllStops() {
 
 
 
-bool Graph::isWay(int start, int end)
+bool Graph::isWay(string startName, string endName)
 {
+    int start = members[startName];
+    int end = members[endName];
     bool visited[MAXIMUM] = { false };
     return isWayInGraph(start, end, this->AdjacencyMatrix, membersSize, visited );
 }
 
-void Graph::isWay(string startName, string endName) {
-    if(isWay(members[startName],members[endName]))
-    {
-        cout<<"there is way between "<<startName<<" and "<<endName<<endl;
-        return;
-    }
-    cout<<"there is NO way between "<<startName<<" and "<<endName<<endl;
-}
 
 
 

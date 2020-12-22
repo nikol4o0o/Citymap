@@ -20,11 +20,11 @@ public:
 
 //Additional Functions
 public:
+    void readFromFile(string fileName);
     void printAllStops();
     string findByValue(int n);
     bool isEnd(int index);
-    bool isWay(int start, int end);
-    void isWay(string startName, string endName);
-    void readFromFile(string fileName);
+    bool isWay(string startName, string endName);
+
 };
 
