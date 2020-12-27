@@ -9,14 +9,19 @@ Graph::Graph()
     initializeMassive(AdjacencyMatrix);
 }
 
-void Graph::readFromFile(string fileName) {
+void Graph::readFromFile(string fileName)
+{
     ifstream readFile(fileName);
-    if (!readFile.is_open()) {
+    if (!readFile.is_open())
+    {
         cout << "Error during the opening" << endl;
-    } else {
+    }
+    else
+        {
         string rowRead;
 
-        while (getline(readFile, rowRead)) {
+        while (getline(readFile, rowRead))
+        {
             int index = 0;
             string wordRead = "";
             int intersectionIndex;
@@ -30,7 +35,9 @@ void Graph::readFromFile(string fileName) {
             {
                 intersectionIndex = members[wordRead];
             }
-            else{
+
+            else
+                {
                 members.insert(pair<string, int>(wordRead, membersSize));
                 intersectionIndex = membersSize;
                 ++membersSize;
@@ -96,9 +103,8 @@ bool Graph::isRouteToEverySingleVertex(string startName)
     bool visitedVertexes[MAXIMUM] = { false };
     bool visitedCurrentVertexes[MAXIMUM]= { false };
     bool flag;
-    int i = 0;
-    int j = 0;
-    for (i; i < membersSize; i++)
+
+    for (int i = 0; i < membersSize; i++)
         {
             if (i == start)
                 {
@@ -107,7 +113,7 @@ bool Graph::isRouteToEverySingleVertex(string startName)
             flag = isRoute(start, i, AdjacencyMatrix, visitedCurrentVertexes, membersSize );
             if (flag)
                 {
-                    for ( j; j < membersSize; j++)
+                    for (int j = 0; j < membersSize; j++)
                         {
                             visitedVertexes[j] = visitedVertexes[j] || visitedCurrentVertexes[j];
                             visitedCurrentVertexes[j] = 0;
@@ -126,6 +132,47 @@ bool Graph::isRouteToEverySingleVertex(string startName)
     return false;
 }
 
+
+bool Graph::isFinal(int index)
+{
+    if(this->AdjacencyMatrix[index][index]<0)
+        {
+            return true;
+        }
+    for(int i=0;i<membersSize;i++)
+        {
+            if(i==index)
+                {
+                    continue;
+                }
+            if(this->AdjacencyMatrix[index][i] >0)
+            {
+                return false;
+            }
+        }
+
+    return true;
+}
+void Graph::printAllFinals()
+{
+    for(int i=0;i<membersSize;i++)
+        {
+            if(isFinal(i))
+                {
+                    for(int j=0; j < membersSize; j++)
+                        {
+                            if(i==j)
+                                {
+                                    continue;
+                                }
+                            if(this->AdjacencyMatrix[j][i]>0)
+                                {
+                                    cout <<"The Node:"<<" "<< searchTheList(i) <<" "<<"is the deadend and the road comes from the Node:"<<" "s<< searchTheList(j) << endl;
+                                }
+                        }
+                }
+        }
+}
 
 
 
