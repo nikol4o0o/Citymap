@@ -14,7 +14,7 @@ bool isRoute(int start, int end,const int Matrix[MAXIMUM][MAXIMUM], bool* visite
 
     for (int i = 0; i < size; i++)
         {
-            if(Matrix[i][i]<0)//check if closed
+            if(Matrix[i][i]<0)
                 {
                     continue;
                 }
@@ -35,6 +35,16 @@ void initializeMassive(int matrix[MAXIMUM][MAXIMUM])
                     matrix[i][j] = 0;
                 }
         }
+}
+
+void closeIntersection(int i, int matrix[MAXIMUM][MAXIMUM])
+{
+    matrix[i][i] = -1;
+}
+
+void openIntersection(int i , int matrix[MAXIMUM][MAXIMUM])
+{
+    matrix[i][i] = 0;
 }
 
 

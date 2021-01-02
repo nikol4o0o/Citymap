@@ -174,6 +174,25 @@ void Graph::printAllFinals()
         }
 }
 
+double Graph::sumRoute(Edge edge)
+{
+    double sum=0;
+    for(int i=0;i<edge.edgeSize - 1; ++i)
+        {
+            sum+=AdjacencyMatrix[edge.edgeMass[i]][edge.edgeMass[i+1]];
+        }
+    return sum;
+}
+
+void Graph::printEdge(Edge edge) {
+    int i = 0;
+    while(i<edge.edgeSize)
+        {
+            cout<<searchTheList(edge.edgeMass[i])<<" ";
+            i++;
+        }
+    //cout<<endl;
+}
 
 
 
