@@ -1,5 +1,8 @@
 #include"Graph.h"
 #include"Edge.h"
+#include "User.h"
+#include "Usermass.h"
+
 
 
 using namespace std;
