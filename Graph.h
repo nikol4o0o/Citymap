@@ -25,11 +25,13 @@ public:
     void printEdge(Edge edge);
     void readFromFile(string fileName);
     string searchTheList(int n);
+    bool isConnectionBtwTwo(int startPoint, int endPoint);
     bool isWay(string startName, string endName);
-    bool isRouteToEverySingleVertex(string startName);
-    void printAllFinals();
-    bool isFinal(int i);
+    bool isConnectionWithEverySingleVertex(string startName);
+    void findConnections(int start, int end, vector<Edge> &edges, bool* visited, int &edgeIndex,int *edge)    void printAllFinals();
+    bool Final(int i);
     double sumRoute(Edge edge);
+    int Cycle(int start);
 
 
 

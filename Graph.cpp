@@ -89,15 +89,20 @@ string Graph::searchTheList(int n) {
     return "";
 }
 
+bool Graph::isConnectionBtwTwo(int startPoint, int endPoint)
+{
+    bool visited[MAXIMUM] = { false };
+    return isRoute(startPoint, endPoint, this->AdjacencyMatrix, visited, membersSize );
+}
+
 bool Graph::isWay(string startName, string endName)
 {
     int start = members[startName];
     int end = members[endName];
-    bool visited[MAXIMUM] = { false };
-    return isRoute(start, end, this->AdjacencyMatrix, visited, membersSize );
+    isConnectionBtwTwo(start, end);
 }
 
-bool Graph::isRouteToEverySingleVertex(string startName)
+bool Graph::isConnectionWithEverySingleVertex(string startName)
 {
     int start = members[startName];
     bool visitedVertexes[MAXIMUM] = { false };
@@ -133,7 +138,7 @@ bool Graph::isRouteToEverySingleVertex(string startName)
 }
 
 
-bool Graph::isFinal(int index)
+bool Graph::Final(int index)
 {
     if(this->AdjacencyMatrix[index][index]<0)
         {
@@ -157,7 +162,7 @@ void Graph::printAllFinals()
 {
     for(int i=0;i<membersSize;i++)
         {
-            if(isFinal(i))
+            if(Final(i))
                 {
                     for(int j=0; j < membersSize; j++)
                         {
@@ -192,6 +197,66 @@ void Graph::printEdge(Edge edge) {
             i++;
         }
     //cout<<endl;
+}
+
+int Graph::Cycle(int start)
+{
+    for(int i=membersSize/2;i<membersSize;i++)
+        {
+            if(i==start)
+                {
+                    continue;
+                }
+            if(isConnectionBtwTwo(start,i)&&isConnectionBtwTwo(i,start))
+                {
+                    return i;
+                }
+        }
+    for(int i=membersSize/2;i>=0;i--)
+        {
+            if(i==start)
+                {
+                    continue;
+                }
+            if(isConnectionBtwTwo(start,i) && isConnectionBtwTwo(i,start))
+                {
+                    return i;
+                }
+        }
+
+    return -1;
+}
+
+void Graph::findConnections(int start, int end, vector<Edge> &edges, bool* visited, int &edgeIndex,int *edge) {
+
+    visited[start]=true;
+    edge[edgeIndex]=start;
+    edgeIndex++;
+
+    if(start!=end)
+        {
+            for(int i=0;i<membersSize;i++)
+                {
+                    if(!visited[i] && this->AdjacencyMatrix[start][i]>0 && this->AdjacencyMatrix[i][i]>=0)
+                        {
+                            findConnections(i, end, edges,visited, edgeIndex,edge);
+                        }
+                }
+
+        }
+    else
+        {
+            Edge newEdge;
+            newEdge.edgeSize = edgeIndex;
+            for(int i=0;i<edgeIndex;i++)
+                {
+                    newEdge.edgeMass[i] = edge[i];
+                    edges.push_back(newEdge);
+                }
+        }
+    visited[start]=false;
+    edgeIndex--;
+
 }
 
 
