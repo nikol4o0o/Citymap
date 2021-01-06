@@ -12,7 +12,7 @@ bool isRoute(int start, int end,const int Matrix[MAXIMUM][MAXIMUM], bool* visite
             return true;
         }
 
-    for (int i = 0; i < size; i++)
+    for (auto i = 0; i < size; i++)
         {
             if(Matrix[i][i]<0)
                 {

@@ -79,9 +79,9 @@ void Graph::readFromFile(string fileName)
     }
 }
 
-string Graph::searchTheList(int n) {
-    map<string, int>::const_iterator it;
-    for(it = this->members.cbegin(); it != this->members.cend(); ++it)
+string Graph::searchTheList(int n)
+{
+    for(auto it = this->members.cbegin(); it != this->members.cend(); ++it)
     {
         if (it->second == n)
             return it->first;
@@ -109,7 +109,7 @@ bool Graph::isConnectionWithEverySingleVertex(string startName)
     bool visitedCurrentVertexes[MAXIMUM]= { false };
     bool flag;
 
-    for (int i = 0; i < membersSize; i++)
+    for (auto i = 0; i < membersSize; i++)
         {
             if (i == start)
                 {
@@ -144,7 +144,7 @@ bool Graph::Final(int index)
         {
             return true;
         }
-    for(int i=0;i<membersSize;i++)
+    for(auto i=0;i<membersSize;i++)
         {
             if(i==index)
                 {
@@ -160,7 +160,7 @@ bool Graph::Final(int index)
 }
 void Graph::printAllFinals()
 {
-    for(int i=0;i<membersSize;i++)
+    for(auto i=0;i<membersSize;i++)
         {
             if(Final(i))
                 {
@@ -201,7 +201,7 @@ void Graph::printEdge(Edge edge) {
 
 int Graph::Cycle(int start)
 {
-    for(int i=membersSize/2;i<membersSize;i++)
+    for(auto i=membersSize/2;i<membersSize;i++)
         {
             if(i==start)
                 {
@@ -212,7 +212,7 @@ int Graph::Cycle(int start)
                     return i;
                 }
         }
-    for(int i=membersSize/2;i>=0;i--)
+    for(auto i=membersSize/2;i>=0;i--)
         {
             if(i==start)
                 {
@@ -235,7 +235,7 @@ void Graph::findConnections(int start, int end, vector<Edge> &edges, bool* visit
 
     if(start!=end)
         {
-            for(int i=0;i<membersSize;i++)
+            for(auto i=0;i<membersSize;i++)
                 {
                     if(!visited[i] && this->AdjacencyMatrix[start][i]>0 && this->AdjacencyMatrix[i][i]>=0)
                         {

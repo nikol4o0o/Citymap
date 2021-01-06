@@ -28,7 +28,8 @@ public:
     bool isConnectionBtwTwo(int startPoint, int endPoint);
     bool isWay(string startName, string endName);
     bool isConnectionWithEverySingleVertex(string startName);
-    void findConnections(int start, int end, vector<Edge> &edges, bool* visited, int &edgeIndex,int *edge)    void printAllFinals();
+    void findConnections(int start, int end, vector<Edge> &edges, bool* visited, int &edgeIndex,int *edge);
+    void printAllFinals();
     bool Final(int i);
     double sumRoute(Edge edge);
     int Cycle(int start);
