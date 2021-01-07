@@ -79,6 +79,25 @@ void Graph::readFromFile(string fileName)
     }
 }
 
+void Graph::moveOn(string &input)
+{
+    if(members.find(input) != members.end())
+    {
+            int index=members[input];
+            cout<<"Location is changed successfully..."<<endl;
+            location=index;
+    }
+    else
+        {
+            cout<<"Location does not exist in the map..."<<endl;
+        }
+}
+
+int Graph::getLocation() const
+{
+    return this->location;
+}
+
 string Graph::searchTheList(int n)
 {
     for(auto it = this->members.cbegin(); it != this->members.cend(); ++it)
@@ -99,7 +118,7 @@ bool Graph::isWay(string startName, string endName)
 {
     int start = members[startName];
     int end = members[endName];
-    isConnectionBtwTwo(start, end);
+    return isConnectionBtwTwo(start, end);
 }
 
 bool Graph::isConnectionWithEverySingleVertex(string startName)

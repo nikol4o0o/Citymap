@@ -13,7 +13,7 @@ class Graph
 {
 private:
     map<string, int> members;
-    int AdjacencyMatrix[MAXIMUM][MAXIMUM];
+    int AdjacencyMatrix[MAXIMUM][MAXIMUM]{};
     int membersSize;
     int location;
     
@@ -33,6 +33,8 @@ public:
     bool Final(int i);
     double sumRoute(Edge edge);
     int Cycle(int start);
+    int getLocation()const;
+    void moveOn(string& input);
 
 
 
