@@ -16,7 +16,7 @@ private:
     int AdjacencyMatrix[MAXIMUM][MAXIMUM]{};
     int membersSize;
     int location;
-    
+
 public:
     Graph();
 
@@ -33,10 +33,14 @@ public:
     bool Final(int i);
     double sumRoute(Edge edge);
     int Cycle(int start);
+    //For the Menu
     int getLocation()const;
     void moveOn(string& input);
+    void findNeighbours();
+
 
 
 
 };
+
 

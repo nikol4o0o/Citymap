@@ -27,22 +27,22 @@ bool checkforName(const std::string cityName, std::vector<string> cityNames)
                     return true;
                 }
         }
-        return false;
+    return false;
 }
 
 int main()
 {
     Graph map;
-     //ofstream output("input.txt");
+    //ofstream output("input.txt");
 
-     map.readFromFile("input.txt");
-     cout<<map.isWay("C", "A");
-     cout<<endl;
-     //cout<<map.isRouteToEverySingleVertex("A");
-     cout<<endl;
-     map.printAllFinals();
-     cout<<"Hello world\n";
-     cout<<endl;
+    map.readFromFile("input.txt");
+    cout<<map.isWay("C", "A");
+    cout<<endl;
+    //cout<<map.isRouteToEverySingleVertex("A");
+    cout<<endl;
+   // map.printAllFinals();
+    cout<<"Hello world\n";
+    cout<<endl;
 
     char username[256];
     char password[256];
@@ -53,7 +53,7 @@ int main()
     bool isOpen = false;
     Usermass users;
     Usermass defaults;
-    //User nikola("nikola", "nikola123");
+    User nikola("nikola", "nikola123");
     vector<string> cityNames;
     cityNames.push_back("sofia");
     cityNames.push_back("pernik");
@@ -68,23 +68,23 @@ int main()
 
 //Initial check, if missing you cannot start the app!
     while(!isOpen)
-    {
-        printf("You need to choose which city you want to visit : Sofia/Burgas/Pernik");
-        cin >> choice;
-        lowerString(choice);
-        bool result = checkforName(choice, cityNames);
-        if(result)
-            {
-                cout<<"Successfully loaded file from directory...\n";
-                cout<<"If you are new you can just type 'help' now...\n";
-                isOpen = true;
-            }
-    }
+        {
+            printf("You need to choose which city you want to visit : Sofia/Burgas/Pernik");
+            cin >> choice;
+            lowerString(choice);
+            bool result = checkforName(choice, cityNames);
+            if(result)
+                {
+                    cout<<"Successfully loaded file from directory...\n";
+                    cout<<"If you are new you can just type 'help' now...\n";
+                    isOpen = true;
+                }
+        }
 
 
 
     while (strcmp(command, "exit") != 0)
-    {
+        {
             if (strcmp(command, "help") == 0)
                 {
 
@@ -103,7 +103,7 @@ int main()
                             cout << "Welcome, Admin!" << endl;
 
                         }
-                        else
+                    else
                         {
                             bool flag1 = false;
                             for (int i = 0; i < users.getSize(); i++)
@@ -191,15 +191,24 @@ int main()
                     map.moveOn(inp);
 
                 }
+            if (strcmp(command, "change") == 0 && !isUser)
+                {
+                    cout<<"You need to login first!"<<endl;
+                }
 
 
+            if (strcmp(command, "neighbours") == 0 && isUser)
+                {
+                    cout<<"The neighbours are:";
+                    map.findNeighbours();
+                }
 
 
 
 
             cin.getline(command, 31);
 
-    }
+        }
     ofstream Usersoutput("Users.txt");
     users.saveUsers(Usersoutput);
 

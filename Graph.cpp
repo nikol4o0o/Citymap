@@ -13,80 +13,80 @@ void Graph::readFromFile(string fileName)
 {
     ifstream readFile(fileName);
     if (!readFile.is_open())
-    {
-        cout << "Error during the opening" << endl;
-    }
+        {
+            cout << "Error during the opening" << endl;
+        }
     else
         {
-        string rowRead;
+            string rowRead;
 
-        while (getline(readFile, rowRead))
-        {
-            int index = 0;
-            string wordRead = "";
-            int intersectionIndex;
-            while (rowRead[index] != ' ')
-            {
-                wordRead = wordRead + rowRead[index];
-                ++index;
-            }
-            //cout << wordRead << endl;
-            if (members.find(wordRead) != members.end())
-            {
-                intersectionIndex = members[wordRead];
-            }
-
-            else
+            while (getline(readFile, rowRead))
                 {
-                members.insert(pair<string, int>(wordRead, membersSize));
-                intersectionIndex = membersSize;
-                ++membersSize;
-            }
-            ++index;
-            for (index; index < rowRead.length(); index++)
-            {
-                wordRead = "";
-                int crossIndex;
+                    int index = 0;
+                    string wordRead = "";
+                    int intersectionIndex;
+                    while (rowRead[index] != ' ')
+                        {
+                            wordRead = wordRead + rowRead[index];
+                            ++index;
+                        }
+                    //cout << wordRead << endl;
+                    if (members.find(wordRead) != members.end())
+                        {
+                            intersectionIndex = members[wordRead];
+                        }
 
-                while (rowRead[index] != ' ')
-                    {
-                        wordRead += rowRead[index];
-                        index++;
-                    }
-                if (members.find(wordRead) != members.end())
-                    {
-                        crossIndex = members[wordRead];
-                     }
-                else
-                    {
-                    members.insert(pair<string, int>(wordRead, membersSize));
-                    crossIndex = membersSize;
-                    membersSize++;
+                    else
+                        {
+                            members.insert(pair<string, int>(wordRead, membersSize));
+                            intersectionIndex = membersSize;
+                            ++membersSize;
+                        }
+                    ++index;
+                    for (index; index < rowRead.length(); index++)
+                        {
+                            wordRead = "";
+                            int crossIndex;
+
+                            while (rowRead[index] != ' ')
+                                {
+                                    wordRead += rowRead[index];
+                                    index++;
+                                }
+                            if (members.find(wordRead) != members.end())
+                                {
+                                    crossIndex = members[wordRead];
+                                }
+                            else
+                                {
+                                    members.insert(pair<string, int>(wordRead, membersSize));
+                                    crossIndex = membersSize;
+                                    membersSize++;
+                                }
+                            index++;
+                            wordRead = "";
+
+                            while (rowRead[index] != ' ' && index < rowRead.length()) {
+                                    wordRead += rowRead[index];
+                                    index++;
+                                }
+                            AdjacencyMatrix[intersectionIndex][crossIndex] = stoi(wordRead);
+                        }
+
                 }
-                index++;
-                wordRead = "";
 
-                while (rowRead[index] != ' ' && index < rowRead.length()) {
-                    wordRead += rowRead[index];
-                    index++;
-                }
-                AdjacencyMatrix[intersectionIndex][crossIndex] = stoi(wordRead);
-            }
-
+            readFile.close();
         }
-
-        readFile.close();
-    }
 }
 
 void Graph::moveOn(string &input)
 {
     if(members.find(input) != members.end())
-    {
+        {
             int index=members[input];
             cout<<"Location is changed successfully..."<<endl;
             location=index;
-    }
+        }
     else
         {
             cout<<"Location does not exist in the map..."<<endl;
@@ -101,10 +101,10 @@ int Graph::getLocation() const
 string Graph::searchTheList(int n)
 {
     for(auto it = this->members.cbegin(); it != this->members.cend(); ++it)
-    {
-        if (it->second == n)
-            return it->first;
-    }
+        {
+            if (it->second == n)
+                return it->first;
+        }
     return "";
 }
 
@@ -170,9 +170,9 @@ bool Graph::Final(int index)
                     continue;
                 }
             if(this->AdjacencyMatrix[index][i] >0)
-            {
-                return false;
-            }
+                {
+                    return false;
+                }
         }
 
     return true;
@@ -278,6 +278,22 @@ void Graph::findConnections(int start, int end, vector<Edge> &edges, bool* visit
 
 }
 
+
+void Graph::findNeighbours()
+{
+    int i = 0;
+    while(i<membersSize)
+        {
+
+            if(this->AdjacencyMatrix[location][i]>0)
+                {
+                    cout<<searchTheList(i)<<" ";
+                }
+                i++;
+        }
+    cout<<endl;
+
+}
 
 
 
