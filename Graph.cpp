@@ -295,5 +295,38 @@ void Graph::findNeighbours()
 
 }
 
+void Graph::close()
+{
+    string inp1;
+    cout<<"Which intersection would you like to be closed?"<<endl;
+    cin>>inp1;
+    if(members.find(inp1) != members.end())
+    {
+            closeIntersection(members[inp1], this->AdjacencyMatrix);
+            cout<<"Successfully closed"<<endl;
+    }
+    else
+        {
+            cout<<"Not found 404 :D"<<endl;
+
+        }
+}
+
+void Graph::open()
+{
+    string inp1;
+    cout<<"Which intersection would you like to be opened?"<<endl;
+    cin>>inp1;
+    if(members.find(inp1) != members.end())
+    {
+            openIntersection(members[inp1], this->AdjacencyMatrix);
+            cout<<"Successfully opened"<<endl;
+    }
+    else
+        {
+            cout<<"Not found 404 :D"<<endl;
+        }
+}
+
 
 

@@ -2,7 +2,6 @@
 #include"Graph.h"
 #include"Edge.h"
 #include <string>
-#include <fstream>
 #include <algorithm>
 #include <vector>
 #include "User.h"
@@ -53,15 +52,15 @@ int main()
     bool isOpen = false;
     Usermass users;
     Usermass defaults;
-    User nikola("nikola", "nikola123");
     vector<string> cityNames;
-    cityNames.push_back("sofia");
-    cityNames.push_back("pernik");
-    cityNames.push_back("burgas");
+    cityNames.emplace_back("sofia");
+    cityNames.emplace_back("pernik");
+    cityNames.emplace_back("burgas");
 
 
     //Default testing...
     //users.AddUser(nikola);
+    //User nikola("nikola", "nikola123");
     ifstream Usersinput("Users.txt");
     users.readUsers(Usersinput);
     cout<<users.getSize()<<endl;
@@ -87,7 +86,13 @@ int main()
         {
             if (strcmp(command, "help") == 0)
                 {
-
+                    cout<<"The supported commands are: "<<endl;
+                    cout<<"'login', logs you in the system, without it you will not be able to operate!"<<endl;
+                    cout<<"'logout', logs you out of the system current User"<<endl;
+                    cout<<"'location', reveals your current location on the map"<<endl;
+                    cout<<"'change', changes the current location on the map"<<endl;
+                    cout<<"'open', opens the current intersection"<<endl;
+                    cout<<"'close', closes the current intersection"<<endl;
                 }
             if ((strcmp(command, "login") == 0) && isOpen)
                 {
@@ -131,9 +136,9 @@ int main()
                     isAdmin = false;
                     cout << "Logout successfull! See ya'! " << endl;
                 }
-            if ((strcmp(command, "logout") == 0 && (!isUser)))
+            if (strcmp(command, "logout") == 0 && !isUser)
                 {
-                    cout << "You need to login to continue!" << endl;
+                    cout << "You need to be logged into the system to operate!" << endl;
                 }
 
 
@@ -175,7 +180,7 @@ int main()
 
             if (strcmp(command, "location") == 0 && isUser)
                 {
-                    cout<<"The current location is: "<<map.searchTheList(map.getLocation());
+                    cout<<"The current location is: "<<map.searchTheList(map.getLocation())<<endl;
                 }
             if (strcmp(command, "location") == 0 && !isUser)
                 {
@@ -202,13 +207,37 @@ int main()
                     cout<<"The neighbours are:";
                     map.findNeighbours();
                 }
+            if (strcmp(command, "neighbours") == 0 && !isUser)
+                {
+                    cout<<"You need to login first!"<<endl;
+                }
 
+
+            if (strcmp(command, "open") == 0 && isUser)
+                {
+                    map.open();
+                 }
+            if (strcmp(command, "open") == 0 && !isUser)
+                {
+                    cout<<"You need to login first"<<endl;
+                }
+
+            if (strcmp(command, "close") == 0 && isUser)
+                {
+                    map.close();
+                }
+            if (strcmp(command, "close") == 0 && !isUser)
+                {
+                   cout<<"You need to login first"<<endl;
+                }
 
 
 
             cin.getline(command, 31);
 
         }
+        cout<<"Exiting the program..."<<endl;
+        cout<<"Good bye, see ya! :)"<<endl;
     ofstream Usersoutput("Users.txt");
     users.saveUsers(Usersoutput);
 

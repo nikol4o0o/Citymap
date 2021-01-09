@@ -18,7 +18,7 @@ bool isRoute(int start, int end,const int Matrix[MAXIMUM][MAXIMUM], bool* visite
                 {
                     continue;
                 }
-            if (visitedVertexes[i] == false && Matrix[start][i] > 0 && isRoute(i, end, Matrix, visitedVertexes, size))
+            if (!visitedVertexes[i] && Matrix[start][i] > 0 && isRoute(i, end, Matrix, visitedVertexes, size))
                 {
                     return true;
                 }

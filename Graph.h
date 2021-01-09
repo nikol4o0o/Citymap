@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
-#include <map>
+#include <unordered_map>
 #include <vector>
 #include<fstream>
 #include<string>
@@ -12,7 +12,8 @@ using namespace std;
 class Graph
 {
 private:
-    map<string, int> members;
+    //Using ordered map, which is Trie will search faster
+    unordered_map<string, int> members;
     int AdjacencyMatrix[MAXIMUM][MAXIMUM]{};
     int membersSize;
     int location;
@@ -37,6 +38,8 @@ public:
     int getLocation()const;
     void moveOn(string& input);
     void findNeighbours();
+    void close();
+    void open();
 
 
 
