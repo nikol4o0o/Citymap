@@ -89,7 +89,7 @@ void Graph::moveOn(string &input)
         }
     else
         {
-            cout<<"Location does not exist in the map..."<<endl;
+            cout<<"Location does not exist on the map..."<<endl;
         }
 }
 
@@ -142,7 +142,7 @@ bool Graph::isConnectionWithEverySingleVertex(string startName)
             flag = isRoute(start, i, AdjacencyMatrix, visitedCurrentVertexes, membersSize );
             if (flag)
                 {
-                    for (int j = 0; j < membersSize; j++)
+                    for (auto j = 0; j < membersSize; j++)
                         {
                             visitedVertexes[j] = visitedVertexes[j] || visitedCurrentVertexes[j];
                             visitedCurrentVertexes[j] = 0;
@@ -220,10 +220,9 @@ void Graph::printEdge(Edge edge) {
             cout<<searchTheList(edge.edgeMass[i])<<" ";
             i++;
         }
-    //cout<<endl;
 }
 
-int Graph::Cycle(int start)
+int Graph::halfCycle(int start)
 {
     for(auto i=membersSize/2;i<membersSize;i++)
         {

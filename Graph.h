@@ -32,7 +32,7 @@ public:
     void printAllFinals();
     bool Final(int i);
     double sumRoute(Edge edge);
-    int Cycle(int start);
+    int halfCycle(int start);
     //For the Menu
     int getLocation()const;
     void moveOn(string& input);
