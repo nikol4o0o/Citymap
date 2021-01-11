@@ -100,7 +100,7 @@ int Graph::getLocation() const
 
 string Graph::searchTheList(int n)
 {
-    for(auto it = this->members.cbegin(); it != this->members.cend(); ++it)
+    for(auto it = this->members.begin(); it != this->members.end(); ++it)
         {
             if (it->second == n)
                 return it->first;
@@ -114,11 +114,16 @@ bool Graph::isConnectionBtwTwo(int startPoint, int endPoint)
     return isRoute(startPoint, endPoint, this->AdjacencyMatrix, visited, membersSize );
 }
 
-bool Graph::isWay(string startName, string endName)
+int Graph::returnStarttoInt(string startName)
 {
-    int start = members[startName];
-    int end = members[endName];
-    return isConnectionBtwTwo(start, end);
+    int startInt = members[startName];
+    return startInt;
+}
+
+int Graph::returnEndtoInt(string endName)
+{
+    int endInt = members[endName];
+    return endInt;
 }
 
 bool Graph::isConnectionWithEverySingleVertex(string startName)
@@ -328,5 +333,36 @@ void Graph::open()
         }
 }
 
+void Graph::threeWays(int startPoint, int endPoint)
+{
+    int count=3;
+    if(!isConnectionBtwTwo(startPoint, endPoint))
+        {
+            cout<<"Error"<<endl;
+            return;
+        }
+    bool visitedVertexes[MAXIMUM]={false};
+    int* edge=new int[membersSize];
+    int edgeIndex=0;
+    vector<Edge> edgeMass;
+    findConnections(startPoint, endPoint, edgeMass, visitedVertexes, edgeIndex, edge);
+    delete[] edge;
+    for(int i=0;i<count && !edgeMass.empty();i++)
+        {
+            int min=INT32_MAX;
+            int minIndex=0;
+            for(int k = 0;k < edgeMass.size();k++)
+                {   int evaluated=sumRoute(edgeMass[k]);
+                    if(evaluated < min)
+                        {
+                            min = evaluated;
+                            minIndex = k;
+                        }
+                }
+            printEdge(edgeMass[minIndex]);
+            cout<<"- "<<min<<endl;
+            edgeMass.erase(edgeMass.begin() + minIndex);
+        }
+}
 
 

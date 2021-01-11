@@ -27,7 +27,6 @@ public:
     void readFromFile(string fileName);
     string searchTheList(int n);
     bool isConnectionBtwTwo(int startPoint, int endPoint);
-    bool isWay(string startName, string endName);
     bool isConnectionWithEverySingleVertex(string startName);
     void findConnections(int start, int end, vector<Edge> &edges, bool* visited, int &edgeIndex,int *edge);
     void printAllFinals();
@@ -40,6 +39,10 @@ public:
     void findNeighbours();
     void close();
     void open();
+    void threeWays(int starPoint, int endPoint);
+    int returnStarttoInt(string startName);
+    int returnEndtoInt(string endName);
+
 
 
 

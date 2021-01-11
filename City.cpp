@@ -35,7 +35,7 @@ int main()
     //ofstream output("input.txt");
 
     map.readFromFile("input.txt");
-    cout<<map.isWay("C", "A");
+    //cout<<map.isWay("C", "A");
     cout<<endl;
     //cout<<map.isRouteToEverySingleVertex("A");
     cout<<endl;
@@ -45,7 +45,7 @@ int main()
 
     char username[256];
     char password[256];
-    char command[32];
+    string command;
     string choice;
     bool isUser = false;
     bool isAdmin = false;
@@ -82,9 +82,11 @@ int main()
 
 
 
-    while (strcmp(command, "exit") != 0)
+    while (command != "exit" )
         {
-            if (strcmp(command, "help") == 0)
+            cin>>command;
+            lowerString(command);
+            if (command == "help")
                 {
                     cout<<"The supported commands are: "<<endl;
                     cout<<"'login', logs you in the system, without it you will not be able to operate!"<<endl;
@@ -93,8 +95,9 @@ int main()
                     cout<<"'change', changes the current location on the map"<<endl;
                     cout<<"'open', opens the current intersection"<<endl;
                     cout<<"'close', closes the current intersection"<<endl;
+                    cout<<"'way', cheks for way between two points"<<endl;
                 }
-            if ((strcmp(command, "login") == 0) && isOpen)
+            else if (command == "login" && isOpen)
                 {
                     cout << "Enter username: " << endl;
                     cin >> username;
@@ -130,19 +133,19 @@ int main()
 
                 }
 
-            if (strcmp(command, "logout") == 0 && isUser)
+            else if (command == "logout" && isUser)
                 {
                     isUser = false;
                     isAdmin = false;
                     cout << "Logout successfull! See ya'! " << endl;
                 }
-            if (strcmp(command, "logout") == 0 && !isUser)
+            else if (command == "logout"&& !isUser)
                 {
                     cout << "You need to be logged into the system to operate!" << endl;
                 }
 
 
-            if ((strcmp(command, "users add") == 0) && isAdmin)
+            else if ((command == "users add" == 0) && isAdmin)
                 {
                     cout << "Enter the username: " << endl;
                     cin >> username;
@@ -152,7 +155,7 @@ int main()
                         {
                             User user1(username, password);
                             users.AddUser(user1);
-                            cout << "Successfull!" << endl;
+                            cout << "Successful!" << endl;
                         } else
                         {
                             cout << "The user already exists" << endl;
@@ -160,35 +163,35 @@ int main()
 
 
                 }
-            if ((strcmp(command, "users add") == 0) && !isAdmin)
+            else if (command == "users add" && !isAdmin)
                 {
                     cout << "No such permissions, you are not admin!" << endl;
                 }
 
 
-            if ((strcmp(command, "users remove") == 0) && isAdmin)
+            else if (command == "users remove" && isAdmin)
                 {
                     cout << "Enter the username to be deleted: " << endl;
                     cin >> username;
                     users.RemoveUser(username);
 
                 }
-            if ((strcmp(command, "users remove") == 0) && !isAdmin)
+            else if (command == "users remove" && !isAdmin)
                 {
                     cout << "No such permissions, you are not admin!" << endl;
                 }
 
-            if (strcmp(command, "location") == 0 && isUser)
+            else if (command == "location" && isUser)
                 {
                     cout<<"The current location is: "<<map.searchTheList(map.getLocation())<<endl;
                 }
-            if (strcmp(command, "location") == 0 && !isUser)
+            else if (command == "location" && !isUser)
                 {
                     cout<<"You need to login first!"<<endl;
                 }
 
 
-            if (strcmp(command, "change") == 0 && isUser)
+            else if (command == "change" && isUser)
                 {
                     string inp;
                     cout<<"Where you want to move on?"<<endl;
@@ -196,44 +199,67 @@ int main()
                     map.moveOn(inp);
 
                 }
-            if (strcmp(command, "change") == 0 && !isUser)
+            else if (command == "change" && !isUser)
                 {
                     cout<<"You need to login first!"<<endl;
                 }
 
 
-            if (strcmp(command, "neighbours") == 0 && isUser)
+            else if (command == "neighbours" && isUser)
                 {
                     cout<<"The neighbours are:";
                     map.findNeighbours();
                 }
-            if (strcmp(command, "neighbours") == 0 && !isUser)
+            else if (command == "neighbours" && !isUser)
                 {
                     cout<<"You need to login first!"<<endl;
                 }
 
 
-            if (strcmp(command, "open") == 0 && isUser)
+            else if (command == "open" && isUser)
                 {
                     map.open();
                  }
-            if (strcmp(command, "open") == 0 && !isUser)
+            else if (command == "open" && !isUser)
                 {
                     cout<<"You need to login first"<<endl;
                 }
 
-            if (strcmp(command, "close") == 0 && isUser)
+            else if (command == "close" && isUser)
                 {
                     map.close();
                 }
-            if (strcmp(command, "close") == 0 && !isUser)
+            else if (command == "close" && !isUser)
                 {
                    cout<<"You need to login first"<<endl;
                 }
 
+            else if (command == "way" && isUser)
+                {
+                    string inp1, inp2;
+                    cout<<"Enter the start point"<<endl;
+                    cin>>inp1;
+                    cout<<"Enter the end point"<<endl;
+                    cin>>inp2;
+                    bool check = map.isConnectionBtwTwo(map.returnStarttoInt(inp1), map.returnEndtoInt(inp2));
+                    if(check)
+                        {
+                            cout<<"There is a way between: "<<inp1<<" and "<<inp2<<"!"<<endl;
+                        }
+                    else
+                        {
+                            cout<<"There is no way :("<<endl;
+                        }
+                }
+           else if (command == "way" && !isUser)
+                {
+                    cout<<"You need to login first"<<endl;
+                }
+           else
+                {
+                    cout<<"Invalid command"<<endl;
+                }
 
-
-            cin.getline(command, 31);
 
         }
         cout<<"Exiting the program..."<<endl;
