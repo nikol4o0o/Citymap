@@ -74,14 +74,14 @@ Usermass& Usermass::AddUser(const User& newUser)
     return *this;
 }
 
-Usermass& Usermass::RemoveUser(const char* username)
+Usermass& Usermass::RemoveUser(string username)
 {
     bool flag = false;
     if (size > 0)
         {
             for (int i = 0; i < this->size; i++)
                 {
-                    if (strcmp(username, users[i].getUsername()) == 0)
+                    if (username == users[i].getUsername())
                         {
                             for (int j = i; j < this->size - 1; j++)
                                 users[j] = users[j + 1];
@@ -133,12 +133,12 @@ int Usermass::getSize()const
     return this->size;
 }
 
-bool Usermass::checkforUser(const char* username)
+bool Usermass::checkforUser(string username)
 {
     bool flag = false;
     for (int i = 0; i < this->size; i++)
         {
-            if (strcmp(users[i].getUsername(), username) == 0)
+            if (users[i].getUsername() == username)
                 {
                     return true;
                 }

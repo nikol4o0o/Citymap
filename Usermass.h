@@ -20,10 +20,10 @@ public:
     User& operator[](int i)const;
     ~Usermass();
     Usermass& AddUser(const User& newUser);
-    Usermass& RemoveUser(const char* username);
+    Usermass& RemoveUser(string username);
     ofstream& saveUsers(ofstream& out);
     ifstream& readUsers(ifstream& in);
-    bool checkforUser(const char* username);
+    bool checkforUser(string username);
     int getSize()const;
 };
 

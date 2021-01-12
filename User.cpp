@@ -10,14 +10,14 @@ User::User()
     setisAdmin(false);
 }
 
-User::User(const char* username, const char* password)
+User::User(string username, string password)
 {
     setUsername(username);
     setPassword(password);
     setisAdmin(false);
 }
 
-User::User(const char* username, const char* password, bool isAdmin)
+User::User(string, string password, bool isAdmin)
 {
     setUsername(username);
     setPassword(password);
@@ -49,12 +49,12 @@ ifstream& User::readUser(ifstream& is)
 
 }
 
-const char* User::getUsername()const
+string User::getUsername()const
 {
     return this->username;
 }
 
-const char* User::getPassword()const
+string User::getPassword()const
 {
     return this->password;
 }
@@ -64,14 +64,14 @@ bool User::getisAdmin()const
     return this->isAdmin;
 }
 
-void User::setUsername(const char* username)
+void User::setUsername(string username)
 {
-    strcpy(this->username, username);
+    this->username = username;
 }
 
-void User::setPassword(const char* password)
+void User::setPassword(string password)
 {
-    strcpy(this->password, password);
+    this->password = password;
 }
 void User::setisAdmin(bool isAdmin)
 {

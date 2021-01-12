@@ -26,21 +26,19 @@ bool checkforName(const std::string cityName, std::vector<string> cityNames)
     return false;
 }
 
+void addTheTxt(string &input)
+{
+    input += ".txt";
+}
+
 void Menu()
 {
     Graph map;
     //ofstream output("input.txt");
-
-    map.readFromFile("input.txt");
-    //cout<<map.isWay("C", "A");
-    cout<<endl;
-
     // map.printAllFinals();
-    cout<<"Hello world\n";
-    cout<<endl;
 
-    char username[256];
-    char password[256];
+    string username;
+    string password;
     string command;
     string choice;
     bool isUser = false;
@@ -50,8 +48,8 @@ void Menu()
     Usermass defaults;
     vector<string> cityNames;
     cityNames.emplace_back("sofia");
-    cityNames.emplace_back("pernik");
-    cityNames.emplace_back("burgas");
+    //cityNames.emplace_back("pernik");
+   // cityNames.emplace_back("burgas");
 
 
     //Default testing...
@@ -59,29 +57,34 @@ void Menu()
     //User nikola("nikola", "nikola123");
     ifstream Usersinput("Users.txt");
     users.readUsers(Usersinput);
-    cout<<users.getSize()<<endl;
+    //cout<<users.getSize()<<endl;
+    printf("Welcome to the CityMap©\n");
+    printf("Nikola Kirilov Labs©\n");
 
 //Initial check, if missing you cannot start the app!
     while(!isOpen)
         {
-            printf("You need to choose which city you want to visit : Sofia/Burgas/Pernik");
+            printf("You need to choose which city you want to visit : Sofia/Burgas/Pernik\n");
             cin >> choice;
             lowerString(choice);
             bool result = checkforName(choice, cityNames);
+            addTheTxt(choice);
             if(result)
                 {
                     cout<<"Successfully loaded file from directory...\n";
                     cout<<"If you are new you can just type 'help' now...\n";
                     isOpen = true;
                 }
+            map.readFromFile(choice);
+
         }
 
 
-
-    while (command != "exit" )
+    while (command != "exit")
         {
-            cin>>command;
-            lowerString(command);
+
+        getline(cin, command);
+        lowerString(command);
             if (command == "help")
                 {
                     cout<<"The supported commands are: "<<endl;
@@ -91,7 +94,11 @@ void Menu()
                     cout<<"'change', changes the current location on the map"<<endl;
                     cout<<"'open', opens the current intersection"<<endl;
                     cout<<"'close', closes the current intersection"<<endl;
-                    cout<<"'way', checks for way between two points"<<endl;
+                    cout<<"'way', checks for a way between two points"<<endl;
+                    cout<<"'waytoall, checks if is there a way from a startpoint to every single vertex'"<<endl;
+                    cout<<"'neighbours', shows the neighbours"<<endl;
+                    cout<<"'tour', makes a tourist cycling around the town"<<endl;
+                    cout<<"'deadends', shows all the deadends in the city"<<endl;
                 }
             else if (command == "login" && isOpen)
                 {
@@ -100,7 +107,7 @@ void Menu()
                     cout << "Enter password" << endl;
                     cin>>password;
 
-                    if (((strcmp(username, "admin") == 0) && ((strcmp(password, "i<3c++") == 0))))
+                    if (username == "admin" && password == "admin123")
                         {
                             isUser = true;
                             isAdmin = true;
@@ -112,8 +119,7 @@ void Menu()
                             bool flag1 = false;
                             for (int i = 0; i < users.getSize(); i++)
                                 {
-                                    if (((strcmp(username, users[i].getUsername()) == 0) &&
-                                         ((strcmp(password, users[i].getPassword()) == 0))))
+                                    if (username == users[i].getUsername() && password ==users[i].getPassword())
                                         {
                                             isUser = true;
                                             cout << "Welcome" << ", " << username << endl;
@@ -125,28 +131,30 @@ void Menu()
                                     cout << "No such user, contact admin! " << endl;
                                 }
                         }
-
+                  
 
                 }
 
-            else if (command == "logout" && isUser)
+            else if ((command == "logout") && isUser)
                 {
                     isUser = false;
                     isAdmin = false;
                     cout << "Logout successfull! See ya'! " << endl;
                 }
-            else if (command == "logout"&& !isUser)
+            else if ((command == "logout") && !isUser)
                 {
                     cout << "You need to be logged into the system to operate!" << endl;
                 }
 
 
-            else if ((command == "users add" == 0) && isAdmin)
+            else if ((command == "users add") && isAdmin)
                 {
                     cout << "Enter the username: " << endl;
                     cin >> username;
+                    lowerString(username);
                     cout << "Enter the password: " << endl;
                     cin >> password;
+                    lowerString(password);
                     if (!users.checkforUser(username))
                         {
                             User user1(username, password);
@@ -156,7 +164,7 @@ void Menu()
                         {
                             cout << "The user already exists" << endl;
                         }
-
+                        
 
                 }
             else if (command == "users add" && !isAdmin)
@@ -189,11 +197,7 @@ void Menu()
 
             else if (command == "change" && isUser)
                 {
-                    string inp;
-                    cout<<"Where you want to move on?"<<endl;
-                    cin >> inp;
-                    map.moveOn(inp);
-
+                    map.moveOn();
                 }
             else if (command == "change" && !isUser)
                 {
@@ -253,17 +257,8 @@ void Menu()
                 }
             else if(command == "waytoall" && isUser)
                 {
-                    string inp3;
-                    cout<<"Enter the intersection"<<endl;
-                    cin>>inp3;
-                    bool check = map.isConnectionWithEverySingleVertex(inp3);
-                    if(check)
-                        {
-                            cout<<"There is a way from "<<inp3<<" to every single intersection"<<endl;
-                        }
-                    else
-                        {
-                            cout<<"There is no way from "<<inp3<<" to every single intersection"<<endl;                        }
+
+                    map.waytoAll();
                 }
 
             else if(command == "waytoall" && !isUser)
@@ -271,12 +266,24 @@ void Menu()
                     cout<<"You need to login first"<<endl;
                 }
 
-            else
+            else if(command == "tour" && isUser)
                 {
-                    cout<<"Invalid command"<<endl;
+                   map.tour();
+                }
+            else if(command == "tour" && !isUser)
+                {
+                    cout<<"You need to login first"<<endl;
+                }
+            else if(command == "deadends" && isUser)
+                {
+                    map.printAllFinals();
+                }
+            else if(command == "deadends" && !isUser)
+                {
+                    cout<<"You need to login first"<<endl;
                 }
 
-
+                
         }
     cout<<"Exiting the program..."<<endl;
     cout<<"Good bye, see ya! :)"<<endl;

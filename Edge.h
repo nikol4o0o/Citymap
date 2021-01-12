@@ -15,7 +15,7 @@ public:
     {
         length = 0;
         edgeSize = 0;
-        edgeMass[20] = {0};
+        //edgeMass[20] = {0};
 
     }
 

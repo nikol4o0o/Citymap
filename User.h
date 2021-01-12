@@ -8,16 +8,16 @@ using namespace std;
 class User
 {
 private:
-    char username[256];
-    char password[256];
+    string username;
+    string password;
     bool isAdmin;
 
 public:
     User();
 
-    User(const char *username, const char *password);
+    User(string username, string password);
 
-    User(const char *username, const char *password, bool isAdmin);
+    User(string username, string password, bool isAdmin);
 
     ofstream &saveUser(ofstream &os);
 
@@ -25,16 +25,16 @@ public:
 
 public:
     //Setters
-    void setUsername(const char *userame);
+    void setUsername(string userame);
 
-    void setPassword(const char *password);
+    void setPassword(string password);
 
     void setisAdmin(bool isAdmin);
 
     //Getters
-    const char *getUsername() const;
+    string getUsername() const;
 
-    const char *getPassword() const;
+    string getPassword() const;
 
     bool getisAdmin() const;
 

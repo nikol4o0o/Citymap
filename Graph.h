@@ -28,20 +28,22 @@ public:
     string searchTheList(int n);
     bool isConnectionBtwTwo(int startPoint, int endPoint);
     bool isConnectionWithEverySingleVertex(string startName);
-    void findConnections(int start, int end, vector<Edge> &edges, bool* visited, int &edgeIndex,int *edge);
+    void allEdges(int startPoint, int endPoint, int *edge, int &edgeIndx,bool* visitedVertexes,vector<Edge> &edges);
     void printAllFinals();
     bool Final(int i);
-    double sumRoute(Edge edge);
+    int sumRoute(Edge edge);
     int halfCycle(int start);
     //For the Menu
+    void PrintThreeShortest(int start, int end,int count);
     int getLocation()const;
-    void moveOn(string& input);
+    void moveOn();
     void findNeighbours();
     void close();
     void open();
-    void threeWays(int starPoint, int endPoint);
     int returnStarttoInt(string startName);
     int returnEndtoInt(string endName);
+    void tour();
+    void waytoAll();
 
 
 
