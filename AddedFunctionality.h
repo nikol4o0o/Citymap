@@ -1,7 +1,7 @@
-//#pragma once
-#define MAXIMUM 20
+#pragma once
 
-bool isRoute(int start, int end,const int Matrix[MAXIMUM][MAXIMUM], bool* visitedVertexes, int size)
+
+bool isRoute(int start, int end,const int Matrix[20][20], bool* visitedVertexes, int size)
 {
     visitedVertexes[start] = true;
     if(Matrix[end][end]<0)
@@ -26,7 +26,7 @@ bool isRoute(int start, int end,const int Matrix[MAXIMUM][MAXIMUM], bool* visite
     return false;
 }
 
-void initializeMassive(int matrix[MAXIMUM][MAXIMUM])
+void initializeMassive(int matrix[20][20])
 {
     for(auto i = 0; i < 20; i++)
         {
@@ -37,15 +37,14 @@ void initializeMassive(int matrix[MAXIMUM][MAXIMUM])
         }
 }
 
-void closeIntersection(int i, int matrix[MAXIMUM][MAXIMUM])
+void closeIntersection(int i, int matrix[20][20])
 {
     matrix[i][i] = -1;
 }
 
-void openIntersection(int i , int matrix[MAXIMUM][MAXIMUM])
+void openIntersection(int i , int matrix[20][20])
 {
     matrix[i][i] = 0;
 }
-
 
 

@@ -10,35 +10,35 @@ User::User()
     setisAdmin(false);
 }
 
-User::User(string username, string password)
+User::User(std::string username, std::string password)
 {
     setUsername(username);
     setPassword(password);
     setisAdmin(false);
 }
 
-User::User(string, string password, bool isAdmin)
+User::User(std::string, std::string password, bool isAdmin)
 {
     setUsername(username);
     setPassword(password);
     setisAdmin(isAdmin);
 }
 
-ofstream& User::saveUser(ofstream& os)
+std::ofstream& User::saveUser(std::ofstream& os)
 {
     if (os.is_open())
         {
-            os << this->username << endl;
-            os << this->password << endl;
+            os << this->username << std::endl;
+            os << this->password << std::endl;
         }
     else
         {
-            cout << "Cannot open stream for saving user!" << endl;
+            std::cout << "Cannot open stream for saving user!" << std::endl;
         }
     return os;
 }
 
-ifstream& User::readUser(ifstream& is)
+std::ifstream& User::readUser(std::ifstream& is)
 {
     if (is.is_open())
         {
@@ -49,12 +49,12 @@ ifstream& User::readUser(ifstream& is)
 
 }
 
-string User::getUsername()const
+std::string User::getUsername()const
 {
     return this->username;
 }
 
-string User::getPassword()const
+std::string User::getPassword()const
 {
     return this->password;
 }
@@ -64,12 +64,12 @@ bool User::getisAdmin()const
     return this->isAdmin;
 }
 
-void User::setUsername(string username)
+void User::setUsername(std::string username)
 {
     this->username = username;
 }
 
-void User::setPassword(string password)
+void User::setPassword(std::string password)
 {
     this->password = password;
 }

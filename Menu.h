@@ -10,10 +10,10 @@
 
 void lowerString(std::string& str)
 {
-    std::transform(str.begin(), str.end(),str.begin(), ::tolower);
+    std::transform(str.begin(), str.end(), str.begin(), ::toupper);
 }
 
-bool checkforName(const std::string cityName, std::vector<string> cityNames)
+bool checkforName(const std::string cityName, std::vector<std::string> cityNames)
 {
     int size = cityNames.size();
     for(int i = 0; i < size; i++)
@@ -26,9 +26,21 @@ bool checkforName(const std::string cityName, std::vector<string> cityNames)
     return false;
 }
 
-void addTheTxt(string &input)
+void addTheTxt(std::string &input)
 {
     input += ".txt";
+}
+
+bool checkMapWay(Graph map,bool check, std::string inp1, std::string inp2)
+{
+    if(check)
+        {
+            std::cout<<"There is a way between: "<<inp1<<" and "<<inp2<<"!"<<std::endl;
+        }
+    else
+        {
+            std::cout<<"There is no way :("<<std::endl;
+        }
 }
 
 void Menu()
@@ -37,25 +49,25 @@ void Menu()
     //ofstream output("input.txt");
     // map.printAllFinals();
 
-    string username;
-    string password;
-    string command;
-    string choice;
+    std::string username;
+    std::string password;
+    std::string command;
+    std::string choice;
     bool isUser = false;
     bool isAdmin = false;
     bool isOpen = false;
     Usermass users;
     Usermass defaults;
-    vector<string> cityNames;
-    cityNames.emplace_back("sofia");
-    //cityNames.emplace_back("pernik");
-   // cityNames.emplace_back("burgas");
+    std::vector<std::string> cityNames;
+    cityNames.emplace_back("SOFIA");
+    cityNames.emplace_back("PERNIK");
+    cityNames.emplace_back("BURGAS");
 
 
     //Default testing...
     //users.AddUser(nikola);
     //User nikola("nikola", "nikola123");
-    ifstream Usersinput("Users.txt");
+    std::ifstream Usersinput("Users.txt");
     users.readUsers(Usersinput);
     //cout<<users.getSize()<<endl;
     printf("Welcome to the CityMap©\n");
@@ -65,14 +77,14 @@ void Menu()
     while(!isOpen)
         {
             printf("You need to choose which city you want to visit : Sofia/Burgas/Pernik\n");
-            cin >> choice;
+            std::cin >> choice;
             lowerString(choice);
             bool result = checkforName(choice, cityNames);
             addTheTxt(choice);
             if(result)
                 {
-                    cout<<"Successfully loaded file from directory...\n";
-                    cout<<"If you are new you can just type 'help' now...\n";
+                    std::cout<<"Successfully loaded file from directory...\n";
+                    std::cout<<"If you are new you can just type 'help' now...\n";
                     isOpen = true;
                 }
             map.readFromFile(choice);
@@ -80,38 +92,40 @@ void Menu()
         }
 
 
-    while (command != "exit")
+    while (command != "EXIT")
         {
 
-        getline(cin, command);
+        getline(std::cin, command);
         lowerString(command);
-            if (command == "help")
+            if (command == "HELP")
                 {
-                    cout<<"The supported commands are: "<<endl;
-                    cout<<"'login', logs you in the system, without it you will not be able to operate!"<<endl;
-                    cout<<"'logout', logs you out of the system current User"<<endl;
-                    cout<<"'location', reveals your current location on the map"<<endl;
-                    cout<<"'change', changes the current location on the map"<<endl;
-                    cout<<"'open', opens the current intersection"<<endl;
-                    cout<<"'close', closes the current intersection"<<endl;
-                    cout<<"'way', checks for a way between two points"<<endl;
-                    cout<<"'waytoall, checks if is there a way from a startpoint to every single vertex'"<<endl;
-                    cout<<"'neighbours', shows the neighbours"<<endl;
-                    cout<<"'tour', makes a tourist cycling around the town"<<endl;
-                    cout<<"'deadends', shows all the deadends in the city"<<endl;
+                    std::cout<<"The supported commands are: "<<std::endl;
+                    std::cout<<"'login', logs you in the system, without it you will not be able to operate!"<<std::endl;
+                    std::cout<<"'logout', logs you out of the system current User"<<std::endl;
+                    std::cout<<"'location', reveals your current location on the map"<<std::endl;
+                    std::cout<<"'change', changes the current location on the map"<<std::endl;
+                    std::cout<<"'open', opens the current intersection"<<std::endl;
+                    std::cout<<"'close', closes the current intersection"<<std::endl;
+                    std::cout<<"'way', checks for a way between two points"<<std::endl;
+                    std::cout<<"'waytoall, checks if is there a way from a startpoint to every single vertex'"<<std::endl;
+                    std::cout<<"'neighbours', shows the neighbours"<<std::endl;
+                    std::cout<<"'tour', makes a tourist cycling around the town"<<std::endl;
+                    std::cout<<"'closed', shows all the deadends in the city"<<std::endl;
+                    std::cout<<"'three', shows the 3 smallest im meters edges to the place you want"<<std::endl;
+                    std::cout<<"'printall', shows all the intersection we've read"<<std::endl;
                 }
-            else if (command == "login" && isOpen)
+            else if (command == "LOGIN" && isOpen)
                 {
-                    cout << "Enter username: " << endl;
-                    cin >> username;
-                    cout << "Enter password" << endl;
-                    cin>>password;
+                    std::cout << "Enter username: " << std::endl;
+                    std::cin >> username;
+                    std::cout << "Enter password" << std::endl;
+                    std::cin>>password;
 
                     if (username == "admin" && password == "admin123")
                         {
                             isUser = true;
                             isAdmin = true;
-                            cout << "Welcome, Admin!" << endl;
+                            std::cout << "Welcome, Admin!" << std::endl;
 
                         }
                     else
@@ -122,172 +136,215 @@ void Menu()
                                     if (username == users[i].getUsername() && password ==users[i].getPassword())
                                         {
                                             isUser = true;
-                                            cout << "Welcome" << ", " << username << endl;
+                                            std::cout << "Welcome" << ", " << username << std::endl;
                                             flag1 = true;
                                         }
                                 }
                             if (!flag1)
                                 {
-                                    cout << "No such user, contact admin! " << endl;
+                                    std::cout << "No such user, contact admin! " << std::endl;
                                 }
                         }
                   
 
                 }
 
-            else if ((command == "logout") && isUser)
+            else if ((command == "LOGOUT") && isUser)
                 {
                     isUser = false;
                     isAdmin = false;
-                    cout << "Logout successfull! See ya'! " << endl;
+                    std::cout << "Logout successfull! See ya'! " << std::endl;
                 }
             else if ((command == "logout") && !isUser)
                 {
-                    cout << "You need to be logged into the system to operate!" << endl;
+                    std::cout << "You need to be logged into the system to operate!" << std::endl;
                 }
 
 
-            else if ((command == "users add") && isAdmin)
+            else if ((command == "USERS ADD") && isAdmin)
                 {
-                    cout << "Enter the username: " << endl;
-                    cin >> username;
+                    std::cout << "Enter the username: " << std::endl;
+                    std::cin >> username;
                     lowerString(username);
-                    cout << "Enter the password: " << endl;
-                    cin >> password;
+                    std::cout << "Enter the password: " << std::endl;
+                    std::cin >> password;
                     lowerString(password);
                     if (!users.checkforUser(username))
                         {
                             User user1(username, password);
                             users.AddUser(user1);
-                            cout << "Successful!" << endl;
+                            std::cout << "Successful!" << std::endl;
                         } else
                         {
-                            cout << "The user already exists" << endl;
+                            std::cout << "The user already exists" << std::endl;
                         }
                         
 
                 }
-            else if (command == "users add" && !isAdmin)
+            else if (command == "USERS ADD" && !isAdmin)
                 {
-                    cout << "No such permissions, you are not admin!" << endl;
+                    std::cout << "No such permissions, you are not admin!" << std::endl;
                 }
 
 
-            else if (command == "users remove" && isAdmin)
+            else if (command == "USERS REMOVE" && isAdmin)
                 {
-                    cout << "Enter the username to be deleted: " << endl;
-                    cin >> username;
+                    std::cout << "Enter the username to be deleted: " << std::endl;
+                    std::cin >> username;
                     users.RemoveUser(username);
 
                 }
-            else if (command == "users remove" && !isAdmin)
+            else if (command == "USERS REMOVE" && !isAdmin)
                 {
-                    cout << "No such permissions, you are not admin!" << endl;
+                    std::cout << "No such permissions, you are not admin!" << std::endl;
                 }
 
-            else if (command == "location" && isUser)
+            else if (command == "LOCATION" && isUser)
                 {
-                    cout<<"The current location is: "<<map.searchTheList(map.getLocation())<<endl;
+                    std::cout<<"The current location is: "<<map.searchTheList(map.getLocation())<<std::endl;
                 }
-            else if (command == "location" && !isUser)
+            else if (command == "LOCATION" && !isUser)
                 {
-                    cout<<"You need to login first!"<<endl;
-                }
-
-
-            else if (command == "change" && isUser)
-                {
-                    map.moveOn();
-                }
-            else if (command == "change" && !isUser)
-                {
-                    cout<<"You need to login first!"<<endl;
+                    std::cout<<"You need to login first!"<<std::endl;
                 }
 
 
-            else if (command == "neighbours" && isUser)
+            else if (command == "CHANGE" && isUser)
                 {
-                    cout<<"The neighbours are:";
+                    std::string input;
+                    std::cout<<"Where you want to move on?"<<std::endl;
+                    std::cin >> input;
+                    lowerString(input);
+                    map.moveOn(input);
+                }
+            else if (command == "CHANGE" && !isUser)
+                {
+                    std::cout<<"You need to login first!"<<std::endl;
+                }
+
+
+            else if (command == "NEIGHBOURS" && isUser)
+                {
+                    std::cout<<"The neighbours are:";
                     map.findNeighbours();
                 }
-            else if (command == "neighbours" && !isUser)
+            else if (command == "NEIGHBOURS" && !isUser)
                 {
-                    cout<<"You need to login first!"<<endl;
+                    std::cout<<"You need to login first!"<<std::endl;
                 }
 
 
-            else if (command == "open" && isUser)
+            else if (command == "OPEN" && isUser)
                 {
-                    map.open();
+                    std::string inp1;
+                    std::cout<<"Which intersection would you like to be opened?"<<std::endl;
+                    std::cin>>inp1;
+                    lowerString(inp1);
+                    map.open(inp1);
                 }
-            else if (command == "open" && !isUser)
+            else if (command == "OPEN" && !isUser)
                 {
-                    cout<<"You need to login first"<<endl;
-                }
-
-            else if (command == "close" && isUser)
-                {
-                    map.close();
-                }
-            else if (command == "close" && !isUser)
-                {
-                    cout<<"You need to login first"<<endl;
+                    std::cout<<"You need to login first"<<std::endl;
                 }
 
-            else if (command == "way" && isUser)
+            else if (command == "CLOSE" && isUser)
                 {
-                    string inp1, inp2;
-                    cout<<"Enter the start point"<<endl;
-                    cin>>inp1;
-                    cout<<"Enter the end point"<<endl;
-                    cin>>inp2;
+                    std::string inp1;
+                    std::cout<<"Which intersection would you like to be closed?"<<std::endl;
+                    std::cin>>inp1;
+                    lowerString(inp1);
+                    map.close(inp1);
+                }
+            else if (command == "CLOSE" && !isUser)
+                {
+                    std::cout<<"You need to login first"<<std::endl;
+                }
+
+            else if (command == "WAY" && isUser)
+                {
+                    std::string inp1, inp2;
+                    std::cout<<"Enter the start point"<<std::endl;
+                    std::cin>>inp1;
+                    std::cout<<"Enter the end point"<<std::endl;
+                    std::cin>>inp2;
+                    lowerString(inp1);
+                    lowerString(inp2);
                     bool check = map.isConnectionBtwTwo(map.returnStarttoInt(inp1), map.returnEndtoInt(inp2));
-                    if(check)
-                        {
-                            cout<<"There is a way between: "<<inp1<<" and "<<inp2<<"!"<<endl;
-                        }
-                    else
-                        {
-                            cout<<"There is no way :("<<endl;
-                        }
+                    checkMapWay(map, check, inp1, inp2);
                 }
-            else if (command == "way" && !isUser)
+            else if (command == "WAY" && !isUser)
                 {
-                    cout<<"You need to login first"<<endl;
+                    std::cout<<"You need to login first"<<std::endl;
                 }
-            else if(command == "waytoall" && isUser)
+            else if(command == "WAYTOALL" && isUser)
                 {
-
-                    map.waytoAll();
+                    std::string input;
+                    std::cout<<"Enter the intersection"<<std::endl;
+                    std::cin>>input;
+                    lowerString(input);
+                    map.waytoAll(input);
                 }
 
-            else if(command == "waytoall" && !isUser)
+            else if(command == "WAYTOALL" && !isUser)
                 {
-                    cout<<"You need to login first"<<endl;
+                    std::cout<<"You need to login first"<<std::endl;
                 }
 
-            else if(command == "tour" && isUser)
+            else if(command == "TOUR" && isUser)
                 {
                    map.tour();
                 }
-            else if(command == "tour" && !isUser)
+            else if(command == "TOUR" && !isUser)
                 {
-                    cout<<"You need to login first"<<endl;
+                    std::cout<<"You need to login first"<<std::endl;
                 }
-            else if(command == "deadends" && isUser)
+            else if(command == "CLOSED" && isUser)
                 {
                     map.printAllFinals();
                 }
-            else if(command == "deadends" && !isUser)
+            else if(command == "CLOSED" && !isUser)
                 {
-                    cout<<"You need to login first"<<endl;
+                    std::cout<<"You need to login first"<<std::endl;
+                }
+            else if (command == "MOVE" && isUser)
+                {
+                    std::string inp4;
+                    std::cout<<"Enter the location you want to move on"<<std::endl;
+                    std::cin>>inp4;
+                    lowerString(inp4);
+                    map.move(inp4);
+                }
+            else if(command == "MOVE" && !isUser)
+                {
+                    std::cout<<"You need to login first"<<std::endl;
+                }
+            else if (command == "THREE" && isUser)
+                {
+                    std::string inp4;
+                    std::cout<<"Enter the location you want"<<std::endl;
+                    std::cin>>inp4;
+                    lowerString(inp4);
+                    map.three(inp4);
+                }
+            else if(command == "THREE" && !isUser)
+                {
+                    std::cout<<"You need to login first"<<std::endl;
+                }
+            else if (command == "PRINTALL" && isUser)
+                {
+                    map.coutAlltheVertexes();
+                }
+            else if(command == "PRINTALL" && !isUser)
+                {
+                    std::cout<<"You need to login first"<<std::endl;
                 }
 
-                
+
+
         }
-    cout<<"Exiting the program..."<<endl;
-    cout<<"Good bye, see ya! :)"<<endl;
-    ofstream Usersoutput("Users.txt");
+    std::cout<<"Exiting the program..."<<std::endl;
+    std::cout<<"Good bye, see ya! :)"<<std::endl;
+    std::ofstream Usersoutput("Users.txt");
     users.saveUsers(Usersoutput);
 
     Usersoutput.close();

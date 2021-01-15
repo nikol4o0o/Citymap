@@ -2,39 +2,37 @@
 #include <iostream>
 #include <cstring>
 #include <fstream>
-//Lichni failove on OOP
-using namespace std;
 
 class User
 {
 private:
-    string username;
-    string password;
+    std::string username;
+    std::string password;
     bool isAdmin;
 
 public:
     User();
 
-    User(string username, string password);
+    User(std::string username, std::string password);
 
-    User(string username, string password, bool isAdmin);
+    User(std::string username, std::string password, bool isAdmin);
 
-    ofstream &saveUser(ofstream &os);
+    std::ofstream &saveUser(std::ofstream &os);
 
-    ifstream &readUser(ifstream &is);
+    std::ifstream &readUser(std::ifstream &is);
 
 public:
     //Setters
-    void setUsername(string userame);
+    void setUsername(std::string userame);
 
-    void setPassword(string password);
+    void setPassword(std::string password);
 
     void setisAdmin(bool isAdmin);
 
     //Getters
-    string getUsername() const;
+    std::string getUsername() const;
 
-    string getPassword() const;
+    std::string getPassword() const;
 
     bool getisAdmin() const;
 

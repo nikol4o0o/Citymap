@@ -1,7 +1,6 @@
 #pragma once
 #include "User.h"
 //Lichni failove ot OOP
-using namespace std;
 
 class Usermass
 {
@@ -20,10 +19,10 @@ public:
     User& operator[](int i)const;
     ~Usermass();
     Usermass& AddUser(const User& newUser);
-    Usermass& RemoveUser(string username);
-    ofstream& saveUsers(ofstream& out);
-    ifstream& readUsers(ifstream& in);
-    bool checkforUser(string username);
+    Usermass& RemoveUser(std::string username);
+    std::ofstream& saveUsers(std::ofstream& out);
+    std::ifstream& readUsers(std::ifstream& in);
+    bool checkforUser(std::string username);
     int getSize()const;
 };
 

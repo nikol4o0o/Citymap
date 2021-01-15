@@ -60,7 +60,7 @@ User& Usermass::operator[](int i)const
         }
     else
         {
-            cerr << "No such boundary" << endl;
+            std::cerr << "No such boundary" << std::endl;
         }
 }
 
@@ -74,7 +74,7 @@ Usermass& Usermass::AddUser(const User& newUser)
     return *this;
 }
 
-Usermass& Usermass::RemoveUser(string username)
+Usermass& Usermass::RemoveUser(std::string username)
 {
     bool flag = false;
     if (size > 0)
@@ -92,21 +92,21 @@ Usermass& Usermass::RemoveUser(string username)
         }
     if (flag == false)
         {
-            cout << "There is no such user!" << endl;
+            std::cout << "There is no such user!" << std::endl;
         }
     else
         {
-            cout << "Successfull!" << endl;
+            std::cout << "Successfull!" << std::endl;
         }
 
     return *this;
 }
 
-ofstream& Usermass::saveUsers(ofstream& out)
+std::ofstream& Usermass::saveUsers(std::ofstream& out)
 {
     if (out.is_open())
         {
-            out << this->size << endl;
+            out << this->size << std::endl;
             for (int i = 0; i < this->size; i++)
                 {
                     this->users[i].saveUser(out);
@@ -115,7 +115,7 @@ ofstream& Usermass::saveUsers(ofstream& out)
     return out;
 }
 
-ifstream& Usermass::readUsers(ifstream& in)
+std::ifstream& Usermass::readUsers(std::ifstream& in)
 {
     int size = 0;
     in >> size;
@@ -133,7 +133,7 @@ int Usermass::getSize()const
     return this->size;
 }
 
-bool Usermass::checkforUser(string username)
+bool Usermass::checkforUser(std::string username)
 {
     bool flag = false;
     for (int i = 0; i < this->size; i++)
