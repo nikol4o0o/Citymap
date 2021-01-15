@@ -165,10 +165,8 @@ void Menu()
                 {
                     std::cout << "Enter the username: " << std::endl;
                     std::cin >> username;
-                    lowerString(username);
                     std::cout << "Enter the password: " << std::endl;
                     std::cin >> password;
-                    lowerString(password);
                     if (!users.checkforUser(username))
                         {
                             User user1(username, password);
