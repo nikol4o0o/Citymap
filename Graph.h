@@ -16,6 +16,7 @@ private:
     int membersSize;
     int location;
 
+
 public:
     Graph();
 

@@ -8,6 +8,7 @@
 #include "Usermass.h"
 
 
+
 void lowerString(std::string& str)
 {
     std::transform(str.begin(), str.end(), str.begin(), ::toupper);
@@ -31,7 +32,7 @@ void addTheTxt(std::string &input)
     input += ".txt";
 }
 
-bool checkMapWay(Graph map,bool check, std::string inp1, std::string inp2)
+void checkMapWay(Graph map,bool check, std::string inp1, std::string inp2)
 {
     if(check)
         {
@@ -167,6 +168,7 @@ void Menu()
                     std::cin >> username;
                     std::cout << "Enter the password: " << std::endl;
                     std::cin >> password;
+
                     if (!users.checkforUser(username))
                         {
                             User user1(username, password);
